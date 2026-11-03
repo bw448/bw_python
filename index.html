@@ -7,18 +7,30 @@
 <title>Python 十套卷 · 刷题</title>
 <style>
   :root{
-    --bg:#0f1115; --panel:#171a21; --panel2:#1e222b; --text:#e8eaf0; --muted:#9aa3b2;
-    --line:#2a3040; --accent:#6c8cff; --accent-soft:rgba(108,140,255,.14);
+    --bg:#0a0c11; --panel:rgba(26,30,39,.58); --panel2:rgba(255,255,255,.055);
+    --text:#eef1f7; --muted:#a6afbf;
+    --line:rgba(255,255,255,.09); --glass-border:rgba(255,255,255,.10);
+    --accent:#7d97ff; --accent-soft:rgba(125,151,255,.16);
+    --accent-strong:#4f6ee0; --accent-strong-hover:#4360d0;
+    --focus:#a9bcff;
     --good:#3ddc97; --good-soft:rgba(61,220,151,.12);
     --bad:#ff6b6b; --bad-soft:rgba(255,107,107,.12);
     --warn:#ffb84d;
-    --radius:14px;
+    --radius:18px;
+    --ease:180ms ease;
+    --shadow:0 10px 34px rgba(0,0,0,.35);
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
   body{
-    background:var(--bg); color:var(--text);
-    font:15px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:
+      radial-gradient(55% 45% at 12% 0%, rgba(91,110,224,.24), transparent 62%),
+      radial-gradient(45% 40% at 100% 8%, rgba(160,107,255,.18), transparent 68%),
+      radial-gradient(50% 45% at 72% 100%, rgba(61,220,151,.10), transparent 68%),
+      var(--bg);
+    background-attachment:fixed;
+    color:var(--text);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
     padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
@@ -32,25 +44,35 @@
   /* ---------- header ---------- */
   .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;flex-wrap:wrap}
   .brand{display:flex;align-items:center;gap:12px}
-  .logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#6c8cff,#a06bff);
-    display:grid;place-items:center;font-weight:800;font-size:17px;color:#fff;flex:none}
+  .logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#6d8bff,#9a6bff 62%,#c07bff);
+    display:grid;place-items:center;font-weight:800;font-size:17px;color:#fff;flex:none;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 6px 18px rgba(110,130,255,.3)}
   .brand h1{font-size:18px}
   .brand .sub{font-size:12.5px;color:var(--muted);margin-top:1px}
-  .iconbtn{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px}
-  .iconbtn:hover{border-color:#3b4560}
+  .iconbtn{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px;
+    transition:border-color var(--ease),background var(--ease);inline-size:auto;display:inline-flex;align-items:center;gap:6px}
+  .iconbtn:hover{border-color:#3b4560;background:var(--panel2)}
+  .ico{flex:none;display:inline-block;vertical-align:-3px}
+  .card h2 .ico{color:var(--accent)}
   .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#5d6678;margin-right:6px;vertical-align:middle}
   .dot.on{background:var(--good);box-shadow:0 0 8px rgba(61,220,151,.6)}
 
   /* ---------- stat tiles ---------- */
   .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
-  .tile{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px}
+  .tile{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:13px 15px;
+    -webkit-backdrop-filter:blur(22px) saturate(150%);backdrop-filter:blur(22px) saturate(150%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
   .tile .k{font-size:12px;color:var(--muted)}
-  .tile .v{font-size:22px;font-weight:700;margin-top:2px}
+  .tile .v{font-size:22px;font-weight:700;margin-top:2px;letter-spacing:-.2px}
   .tile .v small{font-size:12px;font-weight:500;color:var(--muted);margin-left:3px}
 
   /* ---------- cards ---------- */
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:12px}
-  .card h2{font-size:15px;display:flex;align-items:center;gap:8px;margin-bottom:3px}
+  .card{background:var(--panel);border:1px solid var(--glass-border);border-radius:var(--radius);padding:18px;margin-bottom:12px;
+    -webkit-backdrop-filter:blur(24px) saturate(150%);backdrop-filter:blur(24px) saturate(150%);
+    box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color var(--ease),background var(--ease)}
+  .card:hover{border-color:rgba(255,255,255,.16)}
+  .card h2{font-size:15.5px;display:flex;align-items:center;gap:9px;margin-bottom:4px;letter-spacing:.1px}
   .card .desc{font-size:13px;color:var(--muted);margin-bottom:12px}
   .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
   select,input[type=number],input[type=password],input[type=text]{
@@ -58,19 +80,21 @@
     padding:9px 11px;font:inherit;font-size:14px;outline:none;min-width:0
   }
   select:focus,input:focus,textarea:focus{border-color:var(--accent)}
-  .btn{background:var(--accent);border:1px solid transparent;color:#fff;border-radius:10px;
-    padding:9px 16px;font-weight:600;font-size:14px}
-  .btn:hover{filter:brightness(1.08)}
-  .btn:disabled{opacity:.4;cursor:not-allowed;filter:none}
+  .btn{background:var(--accent-strong);border:1px solid transparent;color:#fff;border-radius:10px;
+    padding:10px 16px;font-weight:600;font-size:14.5px;min-height:40px;
+    transition:background var(--ease),border-color var(--ease),color var(--ease)}
+  .btn:hover{background:var(--accent-strong-hover)}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
   .btn.ghost{background:var(--panel2);border-color:var(--line);color:var(--text);font-weight:500}
-  .btn.ghost:hover{border-color:#3b4560;filter:none}
-  .btn.ai{background:var(--panel2);border:1px solid rgba(108,140,255,.55);color:#c9d3ff}
-  .btn.ai:hover{background:var(--accent-soft);filter:none}
+  .btn.ghost:hover{border-color:#3b4560;background:var(--panel2)}
+  .btn.ai{background:var(--panel2);border:1px solid rgba(108,140,255,.55);color:#d3dcff}
+  .btn.ai:hover{background:var(--accent-soft);border-color:var(--accent)}
   .btn.wide{width:100%}
-  .chips{display:flex;gap:8px;flex-wrap:wrap}
-  .chip{background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:13.5px;color:var(--muted)}
-  .chip:hover{border-color:#3b4560;color:var(--text)}
-  .chip.on{background:var(--accent-soft);border-color:var(--accent);color:var(--text)}
+  .chips{display:flex;gap:4px;flex-wrap:wrap;background:rgba(255,255,255,.05);
+    border:1px solid var(--line);border-radius:14px;padding:4px}
+  .chip{background:transparent;border:none;border-radius:10px;padding:8px 14px;font-size:13.5px;color:var(--muted)}
+  .chip:hover{color:var(--text);background:rgba(255,255,255,.06)}
+  .chip.on{background:rgba(255,255,255,.14);color:var(--text);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
 
   /* ---------- quiz ---------- */
   .quizbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
@@ -80,15 +104,17 @@
     background:rgba(255,184,77,.1);border:1px solid rgba(255,184,77,.3);border-radius:9px;padding:4px 10px}
   .timer.ok{color:var(--text);background:var(--panel2);border-color:var(--line)}
 
-  .qcard{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+  .qcard{background:var(--panel);border:1px solid var(--glass-border);border-radius:var(--radius);padding:20px;
+    -webkit-backdrop-filter:blur(24px) saturate(150%);backdrop-filter:blur(24px) saturate(150%);
+    box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.05)}
   .qtag{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
   .badge{font-size:11.5px;color:var(--muted);background:var(--panel2);border:1px solid var(--line);
     border-radius:999px;padding:2px 9px}
   .badge.type{color:#c9d3ff;background:var(--accent-soft);border-color:rgba(108,140,255,.35)}
   .stem{white-space:pre-wrap;word-break:break-word;font-size:15.5px;line-height:1.75}
   .body{white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-    font-size:13px;background:#111318;border:1px solid var(--line);border-radius:10px;
-    padding:12px;margin-top:12px;color:#cfd6e6;overflow-x:auto}
+    font-size:13px;background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:12px;
+    padding:12px;margin-top:12px;color:#d3daea;overflow-x:auto}
   .options{margin-top:14px;display:flex;flex-direction:column;gap:8px}
   .opt{display:flex;gap:11px;align-items:flex-start;width:100%;text-align:left;
     background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:11px 13px;
@@ -97,7 +123,7 @@
   .opt .letter{flex:none;width:22px;height:22px;border-radius:6px;background:#2a3040;
     display:grid;place-items:center;font-size:12.5px;font-weight:700;color:#c9d3ff;margin-top:1px}
   .opt.sel{border-color:var(--accent);background:var(--accent-soft)}
-  .opt.sel .letter{background:var(--accent);color:#fff}
+  .opt.sel .letter{background:var(--accent-strong);color:#fff}
   .opt.right{border-color:var(--good);background:var(--good-soft)}
   .opt.right .letter{background:var(--good);color:#06281a}
   .opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
@@ -118,7 +144,7 @@
   .feedback.good .verdict{color:var(--good)}
   .feedback.bad .verdict{color:var(--bad)}
   .answer-ref{white-space:pre-wrap;word-break:break-word;font-size:14px;
-    background:#111318;border:1px solid var(--line);border-radius:9px;padding:11px 13px;margin-top:8px}
+    background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-top:8px}
   .explain{white-space:pre-wrap;word-break:break-word;font-size:14px;line-height:1.7;
     margin-top:10px;color:#cfd6e6}
   .explain h4{font-size:13px;color:var(--muted);margin:0 0 4px;font-weight:600}
@@ -146,7 +172,9 @@
   .ai-mask{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .2s;z-index:80}
   .ai-mask.show{opacity:1;pointer-events:auto}
   .ai-drawer{position:fixed;top:0;right:0;height:100dvh;width:min(460px,100vw);
-    background:#12151b;border-left:1px solid var(--line);z-index:90;
+    background:rgba(16,19,26,.84);border-left:1px solid var(--glass-border);z-index:90;
+    -webkit-backdrop-filter:blur(30px) saturate(160%);backdrop-filter:blur(30px) saturate(160%);
+    box-shadow:-20px 0 60px rgba(0,0,0,.45);
     display:flex;flex-direction:column;transform:translateX(102%);transition:transform .22s ease}
   .ai-drawer.show{transform:none}
   .ai-head{display:flex;align-items:center;justify-content:space-between;gap:10px;
@@ -167,12 +195,12 @@
   .ai-msg.assistant{background:var(--panel2);border:1px solid var(--line)}
   .ai-msg.user{background:var(--accent-soft);border:1px solid rgba(108,140,255,.4);align-self:flex-end;max-width:88%}
   .ai-msg.err{background:var(--bad-soft);border-color:rgba(255,107,107,.45);color:#ffb3b3}
-  .ai-msg .md-code{background:#0c0e13;border:1px solid var(--line);border-radius:9px;padding:10px 12px;
+  .ai-msg .md-code{background:rgba(0,0,0,.34);border:1px solid var(--line);border-radius:11px;padding:10px 12px;
     margin:8px 0;overflow-x:auto;white-space:pre;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;line-height:1.55}
-  .ai-msg .md-inline{background:#0c0e13;border:1px solid var(--line);border-radius:5px;padding:1px 5px;
+  .ai-msg .md-inline{background:rgba(0,0,0,.34);border:1px solid var(--line);border-radius:6px;padding:1px 5px;
     font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px}
   .ai-msg .md-text{white-space:pre-wrap}
-  .ai-foot{flex:none;padding:12px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:flex-end;background:#12151b}
+  .ai-foot{flex:none;padding:12px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:flex-end;background:rgba(16,19,26,.72)}
   .ai-foot textarea{flex:1;min-height:42px;max-height:140px;resize:none;background:var(--panel2);
     border:1px solid var(--line);border-radius:10px;color:var(--text);padding:10px 12px;font:inherit;font-size:14px;outline:none}
   .ai-foot .btn{padding:10px 14px}
@@ -180,15 +208,18 @@
 
   /* ---------- selection popup ---------- */
   .selpop{position:fixed;z-index:95;transform:translate(-50%,-100%);
-    background:#2b3245;border:1px solid #3b4560;border-radius:9px;padding:7px 12px;font-size:13px;
-    box-shadow:0 8px 24px rgba(0,0,0,.45);display:none;white-space:nowrap}
-  .selpop.show{display:block}
+    background:#2b3245;border:1px solid #3b4560;border-radius:9px;padding:8px 13px;font-size:13px;
+    box-shadow:0 8px 24px rgba(0,0,0,.45);display:none;align-items:center;gap:6px;white-space:nowrap;
+    transition:background var(--ease)}
+  .selpop.show{display:flex}
   .selpop:hover{background:#38405a}
 
   /* ---------- settings modal ---------- */
   .modal-mask{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;place-items:center;z-index:100;padding:18px}
   .modal-mask.show{display:grid}
-  .modal{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;width:min(460px,100%);max-width:calc(100vw - 36px);max-height:90vh;overflow:auto}
+  .modal{background:var(--panel);border:1px solid var(--glass-border);border-radius:20px;padding:20px;width:min(460px,100%);max-width:calc(100vw - 36px);max-height:90vh;overflow:auto;
+    -webkit-backdrop-filter:blur(30px) saturate(160%);backdrop-filter:blur(30px) saturate(160%);
+    box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.06)}
   .modal h3{font-size:16px;margin-bottom:4px}
   .modal .field{margin-top:14px}
   .modal label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:6px}
@@ -198,7 +229,8 @@
 
   /* ---------- 使用说明 ---------- */
   .guide h3{font-size:18px;margin-bottom:10px}
-  .guide .emoji{font-size:28px;display:block;margin-bottom:6px}
+  .guide-ico{width:44px;height:44px;border-radius:13px;background:var(--accent-soft);color:var(--accent);
+    display:grid;place-items:center;margin-bottom:12px}
   .guide p{margin:6px 0;color:#cfd6e6;font-size:14px;line-height:1.7}
   .guide ul{margin:8px 0 0;padding-left:20px;color:#cfd6e6;font-size:14px;line-height:1.85}
   .guide b{color:var(--text)}
@@ -213,8 +245,8 @@
   .ed-status{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted);margin-top:8px}
   .CodeMirror{height:56vh;min-height:320px;max-height:620px;border:1px solid var(--line);border-radius:12px;
     font:13.5px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-  #app .CodeMirror.cm-s-material-darker{background:#111318}
-  #app .cm-s-material-darker .CodeMirror-gutters{background:#0d0f14;border-right:1px solid var(--line)}
+  #app .CodeMirror.cm-s-material-darker{background:rgba(10,12,16,.76)}
+  #app .cm-s-material-darker .CodeMirror-gutters{background:rgba(0,0,0,.32);border-right:1px solid var(--line)}
   #app .cm-s-material-darker .CodeMirror-linenumber{color:#4d5566}
   .CodeMirror-selected{background:rgba(108,140,255,.25) !important}
   .CodeMirror-cursor{border-left-color:#e8eaf0}
@@ -224,7 +256,29 @@
   .CodeMirror-hint{border-radius:6px;padding:4px 10px;color:#cfd6e6}
   li.CodeMirror-hint-active{background:#6c8cff;color:#fff}
 
-  .footer-note{text-align:center;color:#5d6678;font-size:12px;margin-top:26px}
+  .btn:active, .iconbtn:active, .opt:active, .chip:active{transform:scale(.985)}
+  .btn, .iconbtn, .opt, .chip{transition:transform var(--ease),background var(--ease),border-color var(--ease),color var(--ease)}
+  @media (hover:none){ .card:hover{border-color:var(--glass-border)} }
+
+  .footer-note{text-align:center;color:#8b93a5;font-size:12px;margin-top:26px}
+  /* ---------- 可访问性 ---------- */
+  button:focus-visible, summary:focus-visible, a:focus-visible, .opt:focus-visible, .chip:focus-visible{
+    outline:2px solid var(--focus); outline-offset:2px;
+  }
+  select:focus-visible, input:focus-visible, textarea:focus-visible{
+    outline:2px solid var(--focus); outline-offset:1px;
+  }
+  @media (pointer:coarse){
+    .btn{min-height:46px}
+    .iconbtn{min-height:44px;min-width:44px;justify-content:center}
+    .opt{min-height:52px}
+    .chip{min-height:44px;display:inline-flex;align-items:center}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;
+      transition-duration:.01ms !important;scroll-behavior:auto !important}
+  }
+
   @media (max-width:520px){
     .tiles{grid-template-columns:repeat(3,1fr);gap:8px}
     .tile{padding:10px}
@@ -232,6 +286,7 @@
     .wrap{padding:16px 13px 48px}
     .actions .btn{min-width:0}
     .ai-drawer{width:100vw;border-left:none}
+    .top .row{margin-left:auto}
   }
   @media (max-width:420px){
     .brand h1{font-size:16px}
@@ -244,7 +299,7 @@
 <body>
 <div class="wrap" id="app"></div>
 
-<div class="selpop" id="selPop">🤖 问 AI</div>
+<div class="selpop" id="selPop"></div>
 
 <div class="ai-mask" id="aiMask"></div>
 <aside class="ai-drawer" id="aiDrawer" aria-hidden="true">
@@ -254,8 +309,8 @@
       <div class="ai-sub" id="aiSub">DeepSeek</div>
     </div>
     <div class="row" style="gap:6px">
-      <button class="iconbtn" id="aiSettingsBtn" title="AI 设置">⚙</button>
-      <button class="iconbtn" id="aiClose" title="关闭">✕</button>
+      <button class="iconbtn" id="aiSettingsBtn" title="AI 设置" aria-label="AI 设置"></button>
+      <button class="iconbtn" id="aiClose" title="关闭" aria-label="关闭 AI 面板"></button>
     </div>
   </div>
   <div class="ai-ctx" id="aiCtx" hidden>
@@ -9000,6 +9055,41 @@ function saveState(){
 /* ================= 工具 ================= */
 const $ = s => document.querySelector(s);
 const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+
+/* ---------- 图标（内联 SVG，避免 emoji 当图标） ---------- */
+const ICONS = {
+  book: '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
+  shuffle: '<path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.8-1.1 2-1.7 3.3-1.7H22"/><path d="m18 2 4 4-4 4"/><path d="M2 6h1.9c1.5 0 2.9.9 3.6 2.2"/><path d="M22 18h-5.9c-1.3 0-2.6-.7-3.3-1.8l-.5-.8"/><path d="m18 14 4 4-4 4"/>',
+  alert: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
+  code: '<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>',
+  timer: '<line x1="10" y1="2" x2="14" y2="2"/><line x1="12" y1="14" x2="15" y2="11"/><circle cx="12" cy="14" r="8"/>',
+  terminal: '<polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/>',
+  bot: '<path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/>',
+  chart: '<line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/>',
+  help: '<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+  play: '<polygon points="6 3 20 12 6 21 6 3"/>',
+  sparkles: '<path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/>',
+  check: '<polyline points="20 6 9 17 4 12"/>',
+  x: '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',
+  settings: '<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>',
+  bulb: '<path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V18h8v-3.3A7 7 0 0 0 12 2Z"/>',
+  pencil: '<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+  trash: '<path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/>',
+  plus: '<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>',
+  download: '<path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/>',
+  upload: '<path d="M12 21V9"/><path d="m7 14 5-5 5 5"/><path d="M5 3h14"/>',
+  file: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>',
+  eraser: '<path d="m7 21-4.3-4.3a2 2 0 0 1 0-2.8L13 3.6a2 2 0 0 1 2.8 0l5.6 5.6a2 2 0 0 1 0 2.8L11 22Z"/><path d="M22 21H7"/><path d="m5 11 9 9"/>',
+  arrowLeft: '<line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>',
+  arrowRight: '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>',
+  message: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+  home: '<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>'
+};
+function ico(name, size){
+  const p = ICONS[name] || "";
+  const s = size || 18;
+  return '<svg class="ico" width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>';
+}
 let toastTimer = null;
 function toast(msg){
   const t = $("#toast"); t.textContent = msg; t.classList.add("show");
@@ -9097,7 +9187,7 @@ function openSettings(){
 }
 
 async function aiRequest(messages, {stream=false, maxTokens=3500}={}){
-  if(!ai.key) throw new Error("还没有填写 API Key。点右上角 ⚙ 配置。");
+  if(!ai.key) throw new Error("还没有填写 API Key。点右上角「AI」→ 设置。");
   let res;
   try{
     res = await fetch("https://api.deepseek.com/chat/completions", {
@@ -9122,7 +9212,7 @@ async function aiRequest(messages, {stream=false, maxTokens=3500}={}){
     try{ body = await res.text(); }catch(e){}
     let extra = "";
     try{ const j = JSON.parse(body); extra = (j.error && j.error.message) || ""; }catch(e){}
-    if(res.status === 401) throw new Error("API Key 无效或已过期（401）。请在 ⚙ 设置里检查。");
+    if(res.status === 401) throw new Error("API Key 无效或已过期（401）。请在「AI 设置」里检查。");
     if(res.status === 402) throw new Error("DeepSeek 账户余额不足（402），请先充值。");
     if(res.status === 429) throw new Error("请求太频繁（429），等几秒再试。");
     if(res.status === 400) throw new Error("请求参数有误（400）：" + (extra || body.slice(0,150)));
@@ -9176,6 +9266,8 @@ function mdToHTML(md){
     t = t.replace(/`([^`\n]+)`/g, '<code class="md-inline">$1</code>');
     t = t.replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>');
     t = t.replace(/^#{1,6}\s+(.+)$/gm, '<strong>$1</strong>');
+    t = t.replace(/^(\s*)[-*]\s+(.+)$/gm, '$1• $2');
+    t = t.replace(/^(\s*)(\d+)\.\s+(.+)$/gm, '$1$2. $3');
     return '<div class="md-text">' + t + '</div>';
   }).join("");
 }
@@ -9318,7 +9410,7 @@ function updateSelPop(){
   if(!rect || (!rect.width && !rect.height)){ return; }
   selText = text;
   const pop = $("#selPop");
-  pop.textContent = "🤖 问 AI：" + (text.length > 12 ? text.slice(0,12) + "…" : text);
+  pop.innerHTML = ico("sparkles", 14) + "<span>问 AI：" + esc(text.length > 12 ? text.slice(0,12) + "…" : text) + "</span>";
   pop.style.left = Math.max(80, Math.min(window.innerWidth - 80, rect.left + rect.width/2)) + "px";
   pop.style.top = Math.max(56, rect.top - 8) + "px";
   pop.classList.add("show");
@@ -9375,7 +9467,7 @@ function renderHome(){
   const wrongs = wrongList().length;
   const ideCard = IS_MOBILE ? "" : `
     <div class="card">
-      <h2>🧪 代码练习（迷你 IDE）</h2>
+      <h2>${ico("terminal")} 代码练习（迷你 IDE）</h2>
       <div class="desc">多文件、行号、语法高亮、补全、直接运行 Python；选中代码让 AI 讲解，报错让 AI 解释，还能让 AI 帮你改代码。</div>
       <button class="btn ghost wide" id="btnFree">打开代码练习区</button>
     </div>`;
@@ -9390,7 +9482,7 @@ function renderHome(){
         </div>
       </div>
       <div class="row" style="gap:6px">
-        <button class="iconbtn" id="btnGuide" title="使用说明">${IS_MOBILE ? "❔" : "说明"}</button>
+        <button class="iconbtn" id="btnGuide" title="使用说明" aria-label="使用说明">${IS_MOBILE ? ico("help",16) : "说明"}</button>
         <button class="iconbtn" id="btnAI"><span class="dot ${ai.key?"on":""}"></span>AI</button>
         <button class="iconbtn" id="btnStats">统计</button>
       </div>
@@ -9403,7 +9495,7 @@ function renderHome(){
     </div>
 
     <div class="card">
-      <h2>📘 按套练习</h2>
+      <h2>${ico("book")} 按套练习</h2>
       <div class="desc">按原卷顺序刷题，可以只刷某一种题型。</div>
       <div class="row">
         <select id="selPaper">${papers.map(p=>`<option value="${p}">第 ${p} 套（${pc[p]} 题）</option>`).join("")}</select>
@@ -9413,7 +9505,7 @@ function renderHome(){
     </div>
 
     <div class="card">
-      <h2>🎲 随机练习</h2>
+      <h2>${ico("shuffle")} 随机练习</h2>
       <div class="desc">从全部 ${QUESTIONS.length} 题里随机抽题，可以只抽某一种题型。</div>
       <div class="row">
         <div class="chips" id="countChips">
@@ -9429,13 +9521,13 @@ function renderHome(){
     </div>
 
     <div class="card">
-      <h2>📕 错题本</h2>
+      <h2>${ico("alert")} 错题本</h2>
       <div class="desc">${wrongs ? `当前有 ${wrongs} 道错题。同一题连续答对 2 次会自动移出。` : "错题本是空的，先去刷几题吧。"}</div>
       <button class="btn ghost wide" id="btnWrong" ${wrongs?"":"disabled"}>${wrongs ? "重刷错题（"+wrongs+" 题）" : "暂时没有错题"}</button>
     </div>
 
     <div class="card">
-      <h2>💻 代码题专项</h2>
+      <h2>${ico("code")} 代码题专项</h2>
       <div class="desc">程序代码阅读题 + 程序设计题，共 ${QUESTIONS.filter(q=>q.type==="code_read"||q.type==="design").length} 题。写完可以点「AI 批改」逐行给你改。</div>
       <button class="btn ghost wide" id="btnCode">开始代码题专项</button>
     </div>
@@ -9443,7 +9535,7 @@ function renderHome(){
     ${ideCard}
 
     <div class="card">
-      <h2>⏱ 模拟考试</h2>
+      <h2>${ico("timer")} 模拟考试</h2>
       <div class="desc">只含单选、多选、填空（自动判分），限时作答，交卷后统一出成绩。</div>
       <div class="row">
         <select id="selMockPaper">${papers.map(p=>`<option value="${p}">第 ${p} 套</option>`).join("")}</select>
@@ -9457,7 +9549,7 @@ function renderHome(){
     </div>
 
     <div class="card" id="aiCard">
-      <h2>🤖 AI 助教 <span class="dot ${ai.key?"on":""}"></span></h2>
+      <h2>${ico("bot")} AI 助教 <span class="dot ${ai.key?"on":""}"></span></h2>
       <div class="desc">${ai.key ? "已配置。答完题点「AI 讲解」，代码题点「AI 批改」，选中任意文字可问 AI。" : "用你自己的 DeepSeek API Key，让 AI 逐题讲解、批改代码、解释你选中的文字。"}</div>
       <div class="row">
         <button class="btn ${ai.key?"ghost":"ai"}" id="btnAIConfig">${ai.key ? "修改 AI 设置" : "配置 AI（填 API Key）"}</button>
@@ -9571,15 +9663,15 @@ function renderQuestion(){
     answerArea = `<input class="textans" id="fillInput" placeholder="在这里输入答案${q.blanks>1 ? "，多个空用 | 分隔" : ""}" autocomplete="off">
       <div class="small muted" id="hint" style="margin-top:8px">${q.blanks>1 ? `本题共 ${q.blanks} 个空，用 | 分隔，例如：可变|不可变` : "注意拼写和大小写"}</div>`;
   }else{
-    answerArea = `<div class="small muted" style="margin-top:14px;margin-bottom:6px">✍️ 在这里写你的代码 / 答案</div>
+    answerArea = `<div class="small muted" style="margin-top:14px;margin-bottom:6px">${ico("pencil",14)} 在这里写你的代码 / 答案</div>
       <textarea class="textans" id="codeInput" spellcheck="false" placeholder="Tab 缩进 4 格；写完点「AI 批改」，或按 Ctrl/Cmd + Enter"></textarea>`;
   }
 
   $("#app").innerHTML = `
     <div class="quizbar">
       <div class="row" style="gap:6px;flex:none">
-        <button class="iconbtn" id="btnBack">← 返回</button>
-        <button class="iconbtn" id="btnAIFree" title="问 AI">🤖</button>
+        <button class="iconbtn" id="btnBack">${ico("arrowLeft",16)} 返回</button>
+        <button class="iconbtn" id="btnAIFree" title="问 AI" aria-label="问 AI">${ico("bot",16)}</button>
       </div>
       <div class="meta">${esc(sess.title)} · 第 ${q.number} 题</div>
       ${isMock ? `<div class="timer" id="timer">--:--</div>` : `<div class="timer ok">${sess.index+1}/${total}</div>`}
@@ -9606,9 +9698,9 @@ function renderQuestion(){
     wireInputs(q);
     const isCode = (q.type === "code_read" || q.type === "design");
     $("#actions").innerHTML = `
-      <button class="btn ghost" id="btnHint">🤖 AI 提示</button>
+      <button class="btn ghost" id="btnHint">${ico("bulb",16)} AI 提示</button>
       ${isCode ? `<button class="btn ghost" id="btnReveal">查看参考答案</button>
-                  <button class="btn ai" id="btnAIGrade">🤖 AI 批改</button>` : ""}
+                  <button class="btn ai" id="btnAIGrade">${ico("sparkles",16)} AI 批改</button>` : ""}
       <button class="btn" id="btnSubmit">提交${isMock ? "并下一题" : ""}</button>
     `;
     $("#btnSubmit").onclick = ()=>submitCurrent();
@@ -9682,7 +9774,7 @@ function revealSelfGrade(){
       ${q.explanation ? `<div class="explain"><h4>解析</h4>${esc(q.explanation)}</div>` : `<div class="small muted" style="margin-top:8px">题库未提供解析，可以点「AI 讲解」让它讲一讲。</div>`}
     </div>`;
   $("#actions").innerHTML = `
-    <button class="btn ghost" id="btnAIGrade2">🤖 AI 批改我的代码</button>
+    <button class="btn ghost" id="btnAIGrade2">${ico("sparkles",16)} AI 批改我的代码</button>
     <button class="btn" id="btnRight" style="background:var(--good);color:#06281a">答对了</button>
     <button class="btn ghost" id="btnWrong">没答对</button>
   `;
@@ -9739,7 +9831,7 @@ function applyAnswered(q, rec){
     $("#codeInput").value = rec.user || ""; $("#codeInput").disabled = true;
   }
 
-  const okText = rec.ok === true ? "✅ 回答正确" : rec.ok === false ? "❌ 回答错误" : "已记录";
+  const okText = rec.ok === true ? (ico("check",16) + " 回答正确") : rec.ok === false ? (ico("x",16) + " 回答错误") : "已记录";
   const noExplain = !q.explanation && (q.type === "code_read" || q.type === "design");
   $("#feedback").innerHTML = `
     <div class="feedback ${rec.ok===true?"good":rec.ok===false?"bad":""}">
@@ -9750,7 +9842,7 @@ function applyAnswered(q, rec){
         : (noExplain ? `<div class="small muted" style="margin-top:8px">题库未提供解析，点下面的「AI 讲解」让它讲一讲。</div>` : "")}
     </div>`;
   $("#actions").innerHTML = `
-    <button class="btn ai" id="btnAIExplain">🤖 AI 讲解</button>
+    <button class="btn ai" id="btnAIExplain">${ico("sparkles",16)} AI 讲解</button>
     <button class="btn" id="btnNext">${sess.index+1 >= sess.list.length ? "完成本次练习" : "下一题 →"}</button>
   `;
   $("#btnAIExplain").onclick = ()=>aiExplainCurrent();
@@ -9816,7 +9908,7 @@ function finishSession(){
   const savedRecords = sess.records;
   $("#app").innerHTML = `
     <div class="top">
-      <div class="brand"><div class="logo">${isMock?"考":"✓"}</div>
+      <div class="brand"><div class="logo">${isMock ? ico("timer",20) : ico("check",20)}</div>
         <div><h1>${isMock ? "模拟考结束" : "练习完成"}</h1>
         <div class="sub">${esc(sess.title)} · 用时 ${fmtTime(elapsed)}</div></div>
       </div>
@@ -10112,11 +10204,11 @@ function renderFree(){
     <div class="card">
       <div class="ed-bar">
         <select id="fileSel">${ide.files.map(x=>`<option value="${x.id}"${x.id===ide.active?" selected":""}>${esc(x.name)}</option>`).join("")}</select>
-        <button class="iconbtn" id="btnNewFile">＋ 新建</button>
-        <button class="iconbtn" id="btnRenameFile">重命名</button>
-        <button class="iconbtn" id="btnDelFile">删除</button>
-        <button class="iconbtn" id="btnImport">导入 .py</button>
-        <button class="iconbtn" id="btnExport">下载 .py</button>
+        <button class="iconbtn" id="btnNewFile">${ico("plus",15)} 新建</button>
+        <button class="iconbtn" id="btnRenameFile">${ico("pencil",15)} 重命名</button>
+        <button class="iconbtn" id="btnDelFile">${ico("trash",15)} 删除</button>
+        <button class="iconbtn" id="btnImport">${ico("upload",15)} 导入 .py</button>
+        <button class="iconbtn" id="btnExport">${ico("download",15)} 下载 .py</button>
         <input type="file" id="fileInput" accept=".py,.txt" style="display:none">
       </div>
 
@@ -10128,10 +10220,10 @@ function renderFree(){
       </div>
 
       <div class="actions">
-        <button class="btn" id="btnRun">▶ 运行</button>
-        <button class="btn ai" id="btnAISelCode">🤖 解释选中</button>
-        <button class="btn ghost" id="btnAIGradeFree">🤖 批改代码</button>
-        <button class="btn ghost" id="btnClearCode">清空</button>
+        <button class="btn" id="btnRun">${ico("play",15)} 运行</button>
+        <button class="btn ai" id="btnAISelCode">${ico("sparkles",16)} 解释选中</button>
+        <button class="btn ghost" id="btnAIGradeFree">${ico("bot",16)} 批改代码</button>
+        <button class="btn ghost" id="btnClearCode">${ico("eraser",16)} 清空</button>
       </div>
     </div>
 
@@ -10139,7 +10231,7 @@ function renderFree(){
       <h2 style="margin-bottom:8px">输出</h2>
       <pre id="out" class="body" style="margin:0;max-height:320px;overflow:auto"></pre>
       <div id="figs"></div>
-      <button class="btn ai" id="btnAIErr" style="display:none;margin-top:10px">🤖 让 AI 解释这个报错</button>
+      <button class="btn ai" id="btnAIErr" style="display:none;margin-top:10px">${ico("sparkles",16)} 让 AI 解释这个报错</button>
     </div>
 
     <div class="footer-note">Ctrl/Cmd + Enter 运行 · Ctrl/Cmd + S 保存 · Shift + Ctrl/Cmd + A 解释选中<br>代码保存在本机浏览器 · 首次运行要下载 Python 环境（约 10 MB，需联网）</div>
@@ -10446,6 +10538,8 @@ function aiExplainRunError(){
 }
 
 /* ================= AI 抽屉事件 ================= */
+$("#aiClose").innerHTML = ico("x", 16);
+$("#aiSettingsBtn").innerHTML = ico("settings", 16);
 $("#aiClose").onclick = aiClose;
 $("#aiMask").onclick = aiClose;
 $("#aiSettingsBtn").onclick = openSettings;
@@ -10497,38 +10591,38 @@ const GUIDE_KEY = "pyquiz.guide.v1";
 let guideStep = 0;
 const GUIDE_SLIDES = [
   {
-    emoji: "👋",
+    icon: "sparkles",
     title: "欢迎：Python 十套卷",
     html: "<p>老师发的 10 套卷已经变成可以刷题的题库，共 599 题。</p>" +
       "<ul><li>单选 300 · 多选 150 · 填空 50</li><li>代码阅读 50 · 程序设计 49</li><li>自动判分、错题本、模拟考、统计</li></ul>"
   },
   {
-    emoji: "📘",
+    icon: "book",
     title: "怎么开始",
     html: "<p>首页选一种方式：</p>" +
       "<ul><li><b>按套练习</b>：按原卷顺序刷，可只刷某一种题型</li><li><b>随机练习</b>：碎片时间抽 10 / 20 / 50 题，可按题型筛</li><li><b>错题本</b>：答错的自动进，连续答对 2 次移出</li></ul>" +
       "<p>答题：A–D 选择，Enter 提交，再按 Enter 下一题。</p>"
   },
   {
-    emoji: "🤖",
+    icon: "bot",
     title: "AI 助教（可选）",
     html: "<p>点右上角 <b>AI</b>，填入自己的 DeepSeek API Key（只保存在这台设备的浏览器里）。</p>" +
       "<ul><li>答完题点「AI 讲解」：为什么对、你错在哪</li><li>代码题点「AI 批改」：逐行指出问题并给改进代码</li><li>选中题目里的任意文字 →「问 AI」：结合题目解释</li></ul>"
   },
   {
-    emoji: IS_MOBILE ? "📱" : "💻",
+    icon: IS_MOBILE ? "home" : "terminal",
     title: IS_MOBILE ? "手机上的用法" : "电脑上还能写代码",
     html: IS_MOBILE
       ? "<p>手机上保留：刷题、错题本、模拟考、AI 讲解。</p>" +
         "<ul><li>代码练习（运行 Python）已隐藏，完整版请用电脑打开</li><li>可以把页面「添加到主屏幕」，像 App 一样启动</li></ul>"
-      : "<p>首页「🧪 代码练习」是一个迷你 IDE：</p>" +
+      : "<p>首页「代码练习」是一个迷你 IDE：</p>" +
         "<ul><li>多文件、行号、语法高亮、代码补全</li><li>直接运行 Python，支持 numpy / pandas / matplotlib</li><li>选中代码让 AI 讲解，报错让 AI 解释</li></ul>"
   }
 ];
 function renderGuide(){
   const s = GUIDE_SLIDES[guideStep];
   $("#guideDots").innerHTML = GUIDE_SLIDES.map((_, i)=>`<i class="${i === guideStep ? "on" : ""}"></i>`).join("");
-  $("#guideBody").innerHTML = `<span class="emoji">${s.emoji}</span><h3>${s.title}</h3>${s.html}`;
+  $("#guideBody").innerHTML = `<span class="guide-ico">${ico(s.icon, 22)}</span><h3>${s.title}</h3>${s.html}`;
   $("#guideNext").textContent = guideStep === GUIDE_SLIDES.length - 1 ? "开始刷题" : "下一步";
   $("#guideSkip").textContent = guideStep === 0 ? "跳过" : "上一步";
 }
